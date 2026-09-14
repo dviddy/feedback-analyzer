@@ -116,6 +116,19 @@ function analyzeFeedback(feedback) {
 };
 }
 
+function analyzeSingleFeedback() {
+    const feedback = document.getElementById("feedback").value;
+
+    const result = analyzeFeedback(feedback);
+
+    document.getElementById("analysis").innerHTML =
+        "<div class='insight'><strong>Category</strong>" + result.category + "</div>" +
+        "<div class='insight'><strong>Sentiment</strong>" + result.sentiment + "</div>" +
+        "<div class='insight'><strong>Effort</strong>" + result.effort + "</div>" +
+        "<div class='insight'><strong>Priority</strong>" + result.priority + "</div>" +
+        "<div class='insight'><strong>Recommended Action</strong>" + result.action + "</div>";
+}
+
 function analyzeCSV() {
     const fileInput = document.getElementById("csvFile");
     const file = fileInput.files[0];

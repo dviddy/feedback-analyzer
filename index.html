@@ -108,6 +108,7 @@
     <h2>Analyze Feedback</h2>
     <p>Paste a comment below to identify key CX insights.</p>
     <textarea id="feedback" rows="6" placeholder="Example: I've tried logging in three times and keep getting an error."></textarea>
+    <button onclick="analyzeSingleFeedback()">Analyze Feedback</button>
     
 </div>
 
@@ -116,9 +117,8 @@
     <p>Upload a CSV file containing feedback.</p>
 
     <input type="file" id="csvFile" accept=".csv">
+    <button onclick="analyzeCSV()">Analyze CSV</button>
 
-    <button onclick="analyzeCSV
-    (document.getElementById('csvFile').files[0])">Analyze Feedback</button>
 </div>
 
     <div id="results">
