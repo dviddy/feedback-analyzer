@@ -4,61 +4,122 @@
     <title>Customer Feedback Analyzer</title>
 
     <style>
+
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-        }
+            background: #f4f6f8;
+            color: #1f2937;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+    }
 
-        h1 {
+        .header {
             text-align: center;
-        }
+            margin-bottom: 35px;
+    }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+    }
+
+        .header p {
+            font-size: 18px;
+            color: #6b7280;
+    }
+
+        .input-card,
+        #results {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+    }
 
         textarea {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             font-size: 16px;
             box-sizing: border-box;
-            border: 1px solid #ccc;
             border-radius: 8px;
-        }
+            border: 1px solid #d1d5db;
+            resize: vertical;
+    }
 
         button {
             margin-top: 15px;
-            padding: 12px 20px;
+            padding: 13px 22px;
             font-size: 16px;
-            cursor: pointer;
-        }
-
-        #results {
-            margin-top: 25px;
-            padding: 20px;
-            border: 1px solid #ccc;
+            font-weight: bold;
+            border: none;
             border-radius: 8px;
-            white-space: pre-line;
-        }
+            cursor: pointer;
+            background: #2563eb;
+            color: white;
+    }
+
+        button:hover {
+            background: #1d4ed8;
+    }
+
+        #results h2 {
+            margin-top: 0;
+    }
 
         .priority {
             font-weight: bold;
             font-size: 20px;
-            color: red
+    }
+
+        .insight {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            background: #f8fafc;
         }
 
+        .insight strong {
+            display: block;
+            margin-bottom: 5px;
+    }
+
+        .priority-high {
+            border-left: 5px solid #dc2626;
+    }
+
+        .priority-low {
+            border-left: 5px solid #16a34a;
+    }
+
     </style>
+    
 </head>
 
 <body>
 
-    <h1>Customer Feedback Analyzer</h1>
+   <div class="header">
+    <h1>Member Experience Intelligence</h1>
+    <p>Turn feedback into actionable CX insights.</p>
+</div>  
 
-    <p>Enter customer feedback below:</p>
+    <div class="input-card">
+    <h2>Analyze Feedback</h2>
+    <p>Paste a comment below to identify key CX insights.</p>
+    <textarea id="feedback" rows="6" placeholder="Example: I've tried logging in three times and keep getting an error."></textarea>
+    
+</div>
 
-    <textarea id="feedback" rows="6" cols="60"></textarea>
+<div class="input-card">
+    <h2>Analyze Multiple Comments</h2>
+    <p>Upload a CSV file containing feedback.</p>
 
-    <br><br>
+    <input type="file" id="csvFile" accept=".csv">
 
-    <button onclick="analyzeFeedback()">Analyze Feedback</button>
+    <button onclick="analyzeCSV
+    (document.getElementById('csvFile').files[0])">Analyze Feedback</button>
+</div>
 
     <div id="results">
         <h2>Analysis Results</h2>
