@@ -25,9 +25,12 @@ function analyzeFeedback(feedback) {
         lowerFeedback.includes("worst") ||
         lowerFeedback.includes("error") ||
         lowerFeedback.includes("horrible") ||
-        lowerFeedback.includes("crashing")  
+        lowerFeedback.includes("crashing") ||
+        lowerFeedback.includes("fee") || 
+        lowerFeedback.includes("charge")
     ) {
         sentiment = "Negative";
+        
     } else if (
         lowerFeedback.includes("love") ||
         lowerFeedback.includes("great") ||
@@ -166,11 +169,69 @@ function analyzeCSV() {
             console.log("Analysis result:", result);
 });
 
+        const total = results.length;
+
+        const negative = results.filter(function(result) {
+        return result.sentiment === "Negative";
+}).length;
+
+const positive = results.filter(function(result) {
+    return result.sentiment === "Positive";
+}).length;
+
+const highPriority = results.filter(function(result) {
+    return result.priority === "High";
+}).length;
+
+const categoryCounts = {};
+
+results.forEach(function(result) {
+    if (categoryCounts[result.category]) {
+        categoryCounts[result.category]++;
+    } else {
+        categoryCounts[result.category] = 1;
+    }
+});
+
+document.getElementById("summary").innerHTML =
+"<div class='dashboard'>" +
+
+    "<div class='kpi'>" +
+    "<div class='kpi-number'>" + total + "</div>" +
+    "<div class='kpi-label'>Comments Analyzed</div>" +
+    "</div>" +
+
+    "<div class='kpi'>" +
+    "<div class='kpi-number'>" + negative + "</div>" +
+    "<div class='kpi-label'>Negative</div>" +
+    "</div>" +
+
+    "<div class='kpi'>" +
+    "<div class='kpi-number'>" + positive + "</div>" +
+    "<div class='kpi-label'>Positive</div>" +
+    "</div>" +
+
+    "<div class='kpi'>" +
+    "<div class='kpi-number'>" + highPriority + "</div>" +
+    "<div class='kpi-label'>High Priority</div>" +
+    "</div>" +
+
+    "</div>" +
+
+    "<div class='insight'>" +
+    "<strong>Categories</strong>" +
+    Object.keys(categoryCounts).map(function(category) {
+        return "<div>" + category + ": " + categoryCounts[category] + "</div>";
+    }).join("") +
+    "</div>";
+
 document.getElementById("analysis").innerHTML = "";
 
 results.forEach(function(result, index) {
     document.getElementById("analysis").innerHTML +=
-        "<div class='insight'>" +
+        "<div class='insight " +
+        (result.priority === "High" ? "priority-high" : "priority-low") +
+        "'>" +
         "<strong>Comment " + (index + 1) + "</strong>" +
         "<div>Category: " + result.category + "</div>" +
         "<div>Sentiment: " + result.sentiment + "</div>" +
@@ -178,7 +239,7 @@ results.forEach(function(result, index) {
         "<div>Priority: " + result.priority + "</div>" +
         "<div>Recommended Action: " + result.action + "</div>" +
         "</div>";
-});        
+});
 
 alert("Feedback comments found: " + feedbackRows.length);   
     };
