@@ -179,6 +179,10 @@ const positive = results.filter(function(result) {
     return result.sentiment === "Positive";
 }).length;
 
+const neutral = results.filter(function(result) {
+    return result.sentiment === "Neutral";
+}).length;
+
 const highPriority = results.filter(function(result) {
     return result.priority === "High";
 }).length;
@@ -194,35 +198,42 @@ results.forEach(function(result) {
 });
 
 document.getElementById("summary").innerHTML =
-"<div class='dashboard'>" +
+    "<div class='dashboard'>" +
 
-    "<div class='kpi'>" +
-    "<div class='kpi-number'>" + total + "</div>" +
-    "<div class='kpi-label'>Comments Analyzed</div>" +
-    "</div>" +
+        "<div class='kpi'>" +
+            "<div class='kpi-number'>" + total + "</div>" +
+            "<div class='kpi-label'>Comments Analyzed</div>" +
+        "</div>" +
 
-    "<div class='kpi'>" +
-    "<div class='kpi-number'>" + negative + "</div>" +
-    "<div class='kpi-label'>Negative</div>" +
-    "</div>" +
+        "<div class='kpi'>" +
+            "<div class='kpi-number'>" + negative + "</div>" +
+            "<div class='kpi-label'>Negative</div>" +
+        "</div>" +
 
-    "<div class='kpi'>" +
-    "<div class='kpi-number'>" + positive + "</div>" +
-    "<div class='kpi-label'>Positive</div>" +
-    "</div>" +
+        "<div class='kpi'>" +
+            "<div class='kpi-number'>" + positive + "</div>" +
+            "<div class='kpi-label'>Positive</div>" +
+        "</div>" +
 
-    "<div class='kpi'>" +
-    "<div class='kpi-number'>" + highPriority + "</div>" +
-    "<div class='kpi-label'>High Priority</div>" +
-    "</div>" +
+        "<div class='kpi'>" +
+            "<div class='kpi-number'>" + highPriority + "</div>" +
+            "<div class='kpi-label'>High Priority</div>" +
+        "</div>" +
 
     "</div>" +
 
     "<div class='insight'>" +
-    "<strong>Categories</strong>" +
-    Object.keys(categoryCounts).map(function(category) {
-        return "<div>" + category + ": " + categoryCounts[category] + "</div>";
-    }).join("") +
+        "<strong>Sentiment Breakdown</strong>" +
+        "<div>" + negative + " Negative</div>" +
+        "<div>" + positive + " Positive</div>" +
+        "<div>" + neutral + " Neutral</div>" +
+    "</div>" +
+
+    "<div class='insight'>" +
+        "<strong>Categories</strong>" +
+        Object.keys(categoryCounts).map(function(category) {
+            return "<div>" + category + ": " + categoryCounts[category] + "</div>";
+        }).join("") +
     "</div>";
 
 document.getElementById("analysis").innerHTML = "";
