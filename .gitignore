@@ -1,1 +1,14 @@
+node_modules/
 .DS_Store
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.log
+coverage/
+# Local feedback exports are private unless explicitly reviewed as demo fixtures.
+*.csv
+*.numbers
+!Journey Mapping Demo 40.csv
+!Emerging Insights Sample.csv

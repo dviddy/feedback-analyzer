@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: feedback-analyzer
+    runtime: node
+    plan: free
+    buildCommand: npm ci --prefix server --omit=dev
+    startCommand: npm start --prefix server
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        sync: false
+      - key: REVIEW_USERNAME
+        value: reviewer
+      - key: REVIEW_PASSWORD
+        generateValue: true
